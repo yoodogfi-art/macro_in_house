@@ -1,0 +1,37 @@
+# The data you want. Edit this, then run:  python pull.py
+#
+# Each entry needs a unique name (becomes the CSV filename) and a source block.
+# FRED: give the series id (+ optional start/end/frequency/units).
+# KOSIS: paste the generated URL. The apiKey in it is ignored (key comes from
+#        .env), so you can leave it or strip it — your call.
+
+us_unemployment:
+  fred:
+    id: UNRATE
+    start: "2000-01-01"
+
+us_core_cpi:
+  fred:
+    id: CPILFESL
+    start: "2000-01-01"
+
+kr_cpi_goods:
+  kosis:
+    url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=13103134764999+&objL1=13102134764ACC_CD.*AA&objL2=&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=200101&endPrdDe=202607&smblChk=N&orgId=301&tblId=DT_404Y016"
+
+kr_export_price_index:
+  kosis:
+    wide: true
+    url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=T10+T11+T12+T20+T21+T22+&objL1=ALL&objL2=0+A+B+C+D+&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=202101&endPrdDe=202312&orgId=101&tblId=DT_1F02001"
+
+kr_export_volume_index:
+  kosis:
+    wide: true
+    url:  "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=13103134523999+&objL1=ALL&objL2=&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=202412&endPrdDe=202607&orgId=301&tblId=DT_403Y002"
+# Example KOSIS entry — replace the url with your own generated one.
+# Use KOSIS_API_KEY as the apiKey placeholder in the URL (same name as in .env);
+# the real key is injected from .env at fetch time, so the placeholder is just
+# a readable label.
+# bok_base_rate:
+#   kosis:
+#     url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getData&apiKey=KOSIS_API_KEY&orgId=301&tblId=DT_404Y014&itmId=13103134604999&objL1=13102134604ACC_CD.*AA&prdSe=M&startPrdDe=200001&endPrdDe=202607&format=json&jsonVD=Y"
