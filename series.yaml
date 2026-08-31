@@ -26,7 +26,7 @@ kr_total_production_index:
     url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=T1+&objL1=ALL&objL2=&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=200101&endPrdDe=202607&orgId=101&tblId=DT_1JH20201"
 
 # 수출물가
-kr_export_price_index:
+kr_export_index:
   kosis:
     wide: true
     url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=T10+T11+T12+T20+T21+T22+&objL1=ALL&objL2=0+A+B+C+D+&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=200101&endPrdDe=202606&orgId=101&tblId=DT_1F02001"
