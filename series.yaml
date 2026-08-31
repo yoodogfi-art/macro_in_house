@@ -4,7 +4,6 @@
 # FRED: give the series id (+ optional start/end/frequency/units).
 # KOSIS: paste the generated URL. The apiKey in it is ignored (key comes from
 #        .env), so you can leave it or strip it — your call.
-
 us_unemployment:
   fred:
     id: UNRATE
@@ -15,15 +14,24 @@ us_core_cpi:
     id: CPILFESL
     start: "2000-01-01"
 
+# 이게뭐지
 kr_cpi_goods:
   kosis:
     url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=13103134764999+&objL1=13102134764ACC_CD.*AA&objL2=&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=200101&endPrdDe=202607&smblChk=N&orgId=301&tblId=DT_404Y016"
 
+# 총생산지수 (광+공+서비스?)
+kr_total_production_index:
+  kosis:
+    wide: true
+    url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=T1+&objL1=ALL&objL2=&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=200101&endPrdDe=202607&orgId=101&tblId=DT_1JH20201"
+
+# 수출물가
 kr_export_price_index:
   kosis:
     wide: true
-    url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=T10+T11+T12+T20+T21+T22+&objL1=ALL&objL2=0+A+B+C+D+&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=202101&endPrdDe=202312&orgId=101&tblId=DT_1F02001"
+    url: "https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=KOSIS_API_KEY&itmId=T10+T11+T12+T20+T21+T22+&objL1=ALL&objL2=0+A+B+C+D+&objL3=&objL4=&objL5=&objL6=&objL7=&objL8=&format=json&jsonVD=Y&prdSe=M&startPrdDe=200101&endPrdDe=202606&orgId=101&tblId=DT_1F02001"
 
+# 수출량
 kr_export_volume_index:
   kosis:
     wide: true
