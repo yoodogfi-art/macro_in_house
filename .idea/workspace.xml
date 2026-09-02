@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="845c4574-1253-4d27-a1f3-40ee32f45126" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/research/industrial_production/asof_run.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backfill.py" beforeDir="false" afterPath="$PROJECT_DIR$/backfill.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/research/industrial_production/html_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/research/industrial_production/html_report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/research/industrial_production/output/ip_analysis_table.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/research/industrial_production/output/ip_analysis_table.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/research/industrial_production/output/ip_report.html" beforeDir="false" afterPath="$PROJECT_DIR$/research/industrial_production/output/ip_report.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/research/industrial_production/output/projection_log.csv" beforeDir="false" afterPath="$PROJECT_DIR$/research/industrial_production/output/projection_log.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/series.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/series.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +31,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.asof_run.executor": "Run",
     "Python.backfill.executor": "Run",
     "Python.build_table.executor": "Run",
     "Python.config.executor": "Run",

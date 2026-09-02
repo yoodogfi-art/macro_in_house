@@ -46,6 +46,11 @@ def render(R, C) -> str:
     products = [p for p in C.PRODUCT_ORDER if p in prod.columns]
     today = dt.date.today().strftime("%Y-%m-%d")
 
+    # localStorage key, namespaced per report month. Chrome shares
+    # localStorage across all file:// pages, so a single global key would make
+    # every retro report read and write the same 요약/코멘트 store.
+    edit_key = f"ip_report_edits_v1::{last_actual.strftime('%Y%m')}"
+
     prod_head = "".join(f"<th>{p}</th>" for p in products)
     rows = []
     for d in idx:
@@ -124,7 +129,7 @@ def render(R, C) -> str:
     return _TEMPLATE.format(
         today=today, n=n, prod_head=prod_head, body=body,
         cons=cons, avgs=avgs, colgroup=colgroup, prod_w=prod_w,
-        bridge_note=bridge_note,
+        bridge_note=bridge_note, edit_key=edit_key,
     )
 
 
@@ -246,8 +251,11 @@ _TEMPLATE = """<!DOCTYPE html>
     .toolbar {{ display:none !important; }}
     body {{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }}
 
-    .summary, .cons-v {{
+    /* .cmt must be in this rule: without -webkit-user-modify:read-only,
+       Chromium renders the contenteditable 코멘트 block blank in print. */
+    .summary, .cmt, .cons-v {{
       -webkit-user-modify: read-only !important;
+      user-modify: read-only !important;
       overflow: visible !important;
       height: auto !important;
       pointer-events: none;
@@ -342,12 +350,14 @@ _TEMPLATE = """<!DOCTYPE html>
   <button onclick="savePDF()" class="tb-primary">PDF로 저장</button>
   <button onclick="restoreRows()">행 복원</button>
   <button onclick="resetAll()">원본 복원</button>
-  <span class="tb-note">[PDF로 저장] 클릭 → 인쇄 대화상자에서 대상을 "PDF로 저장(Save as PDF)"으로 선택 후 저장. 요약·코멘트·컨센서스는 클릭해 편집. 표의 × 로 행 삭제(세션 한정). 편집 내용은 브라우저에 자동 저장되며 원본 데이터(CSV·JSON)에는 영향 없음.</span>
+  <span class="tb-note">[PDF로 저장] 클릭 → 인쇄 대화상자에서 대상을 "PDF로 저장(Save as PDF)"으로 선택 후 저장. 요약·코멘트·컨센서스는 클릭해 편집. 표의 × 로 행 삭제(세션 한정). 편집 내용은 브라우저에 자동 저장되며(보고서 월별로 분리 저장) 원본 데이터(CSV·JSON)에는 영향 없음.</span>
 </div>
 
 <script>
 (function() {{
-  var KEY = "ip_report_edits_v1";
+  // 보고서 월별 키. file:// 페이지는 localStorage를 공유하므로
+  // 단일 키를 쓰면 여러 리포트가 서로의 편집 내용을 덮어쓴다.
+  var KEY = "{edit_key}";
 
   function save() {{
     var data = {{ fields:{{}} }};
@@ -387,9 +397,22 @@ _TEMPLATE = """<!DOCTYPE html>
     location.reload();
   }};
 
+  // 인쇄 직전 contenteditable 속성을 제거한다. CSS의 user-modify 우회에만
+  // 의존하지 않고, 편집 상태 자체를 없애 코멘트 누락을 원천 차단.
   window.savePDF = function() {{
+    document.querySelectorAll("[data-edit]").forEach(function(el) {{
+      el.setAttribute("data-ce", el.getAttribute("contenteditable") || "true");
+      el.removeAttribute("contenteditable");
+    }});
     window.print();
   }};
+
+  window.addEventListener("afterprint", function() {{
+    document.querySelectorAll("[data-ce]").forEach(function(el) {{
+      el.setAttribute("contenteditable", el.getAttribute("data-ce"));
+      el.removeAttribute("data-ce");
+    }});
+  }});
 
   document.addEventListener("input", function(e) {{
     if (e.target.closest("[data-edit]")) {{ save(); }}
